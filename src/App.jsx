@@ -50,33 +50,16 @@ class App extends Component {
     this.setState({ searchInput: e.target.value });
   };
 
-  onTempInput = (e) => {
-    this.setState({ tempInput: e.target.value });
-  };
+  // onTempInput = (e) => {
+  //   this.setState({ tempInput: e.target.value });
+  // };
 
   getFilterdList = (value) => {
-    // const { data, tempInput } = this.state;
-    // console.log(value, "hi");
-    // let filterData = [...data];
-
-    // if (value === "ASC") {
-    //   filterData.sort((a, b) => {
-    //     if (a.character > b.character) return 1;
-    //     if (a.character < b.character) return -1;
-    //   });
-    // } else if (value === "DSC") {
-    //   filterData.sort((a, b) => {
-    //     if (a.character > b.character) return -1;
-    //     if (a.character < b.character) return 1;
-    //   });
-    // }
-    // return filterData;
     this.setState({ order: value });
-    console.log(this.state.order, "l73");
   };
 
   render() {
-    const { data } = this.state;
+    const { data, searchInput } = this.state;
     // console.log(this.state);
     //wait for data
     if (!data) {
@@ -87,51 +70,36 @@ class App extends Component {
       return <p>You have delete everything</p>;
     }
 
-    let filterData = [...data];
     let filterd = [...data];
 
-    if (this.state.order === "") {
-      filterd = [...data];
-      if (this.state.order === "ASC") {
-        console.log("ASC", this.state.order, "ui");
-        filterd = filterData.sort((a, b) => {
-          if (a.character > b.character) return 1;
-          if (a.character < b.character) return -1;
-        });
-      } else if (this.state.order === "DSC") {
-        console.log("DSC");
+    if (this.state.order === "ASC") {
+      console.log("ASC", this.state.order, "ui");
+      filterd = data.sort((a, b) => {
+        if (a.character > b.character) return 1;
+        if (a.character < b.character) return -1;
+      });
+    } else if (this.state.order === "DSC") {
+      console.log("DSC");
 
-        filterd = filterData.sort((a, b) => {
-          if (a.character > b.character) return -1;
-          if (a.character < b.character) return 1;
-        });
-      }
+      filterd = data.sort((a, b) => {
+        if (a.character > b.character) return -1;
+        if (a.character < b.character) return 1;
+      });
     }
+
     // calculate total
     let counter = 0;
     data.forEach((charcater) => {
       if (charcater.like) counter++;
     });
 
-    // if (this.state.searchInput) {
-    //   data.filter((char) => {
-    //     return char.character
-    //       .toLowerCase()
-    //       .includes(this.state.searchInput.toLowerCase());
-    //   });
-    //   return true;
-    // }
-
-    //
-
     // filter data we will show in our input box
-    // let filterSearch = [...data];
-    // filterSearch = data.filter((char) => {
-    //   // console.log(char.data, "hi");
-    //   if (char.character.toLowerCase().includes(searchInput.toLowerCase())) {
-    //     return true;
-    //   }
-    // });
+    filterd = data.filter((char) => {
+      // console.log(char.data, "hi");
+      if (char.character.toLowerCase().includes(searchInput.toLowerCase())) {
+        return true;
+      }
+    });
 
     //transport data and function in other components
     return (

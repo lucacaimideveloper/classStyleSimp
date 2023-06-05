@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Controls extends Component {
   render() {
-    const { onSearch, onTempInput, getFilterdList } = this.props;
+    const { onSearch, getFilterdList } = this.props;
     return (
       <>
         <>
