@@ -15,6 +15,7 @@ class Card extends Component {
           onDelete={this.props.onDelete}
           id={id}
           onLikeToggle={this.props.onLikeToggle}
+          // characterDirection={characterDirection}
         />
       </>
     );
